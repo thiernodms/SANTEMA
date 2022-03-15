@@ -183,7 +183,7 @@ class AdminController extends Controller
             if (Auth::user()->usertype == 1) {
                 $data = Rdv::find($id);
 
-                return view('admin.rdv.Notifier_rdv_view', compact('data'));
+                return view('admin.rdv.notifier_rdv_view', compact('data'));
             } else {
                 return redirect()->back();
             }
