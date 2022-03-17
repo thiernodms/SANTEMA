@@ -84,6 +84,14 @@
 
                     <div style="padding: 15px;">
 
+                        <label for="">Email</label>
+                        <input type="text" style="color: black;" name="email" value="{{$agent->email}}" required>
+
+                    </div>
+
+
+                    <div style="padding: 15px;">
+
                         <label for="">Tel</label>
                         <input type="number" style="color: black;" name="tel" value="{{$agent->tel}}" required>
 

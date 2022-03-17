@@ -36,6 +36,7 @@
                         <th style="padding: 5px; border: white solid 1px;">Nom Client</th>
                         <th style="padding: 5px; border: white solid 1px;">Email</th>
                         <th style="padding: 5px; border: white solid 1px;">Date</th>
+                        <th style="padding: 5px; border: white solid 1px;">Heure</th>
                         <th style="padding: 5px; border: white solid 1px;">Agent de santé</th>
                         <th style="padding: 5px; border: white solid 1px;">Service</th>
                         <th style="padding: 5px; border: white solid 1px;">Numéro</th>
@@ -56,6 +57,7 @@
                         <td>{{$rdvs->nom}}</td>
                         <td>{{$rdvs->email}}</td>
                         <td>{{$rdvs->date}}</td>
+                        <td>{{$rdvs->time}}</td>
                         <td>{{$rdvs->agent}}</td>
                         <td>{{$rdvs->service}}</td>
                         <td>{{$rdvs->tel}}</td>

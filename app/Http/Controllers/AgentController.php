@@ -43,6 +43,8 @@ class AgentController extends Controller
 
         $agent->prenom = $request->prenom;
 
+        $agent->email = $request->email;
+
         $agent->tel = $request->tel;
 
         $agent->speciality = $request->speciality;
@@ -108,6 +110,7 @@ class AgentController extends Controller
 
         $agent->nom = $request->nom;
         $agent->prenom = $request->prenom;
+        $agent->email = $request->email;
         $agent->tel = $request->tel;
         $agent->speciality = $request->speciality;
         $agent->quartier = $request->quartier;

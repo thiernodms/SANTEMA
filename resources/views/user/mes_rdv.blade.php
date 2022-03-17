@@ -18,6 +18,7 @@
                 <th style="padding: 10px; font-size: 20px; color:white;">Noms de l'agent</th>
                 <th style="padding: 10px; font-size: 20px; color:white;">Service</th>
                 <th style="padding: 10px; font-size: 20px; color:white;">Date</th>
+                <th style="padding: 10px; font-size: 20px; color:white;">Heure</th>
                 <th style="padding: 10px; font-size: 20px; color:white;">Description</th>
                 <th style="padding: 10px; font-size: 20px; color:white;">Status</th>
 
@@ -32,6 +33,7 @@
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->agent}} </td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->service}}</td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->date}}</td>
+                <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->time}}</td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->description}}</td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->status}}</td>
 

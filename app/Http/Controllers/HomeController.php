@@ -39,6 +39,8 @@ class HomeController extends Controller
 
         $data->date = $request->date;
 
+        $data->time = $request->time;
+
         $data->agent = $request->agent;
 
         $data->service = $request->service;
@@ -66,9 +68,9 @@ class HomeController extends Controller
 
             if (Auth::user()->usertype == 0) {
 
-                $userid = Auth::user()->id;
+                $useremail = Auth::user()->email;
 
-                $rdv = Rdv::where('user_id', $userid)->get();
+                $rdv = Rdv::where('email', $useremail)->get();
 
                 return view('user.mes_rdv', compact('rdv'));
             } else {

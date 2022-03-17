@@ -32,6 +32,7 @@
                     <tr style="background-color: black; ">
 
                         <th style="padding: 5px; border: white solid 1px;">Nom</th>
+                        <th style="padding: 5px; border: white solid 1px;">Mail</th>
                         <th style="padding: 5px; border: white solid 1px;">Tel</th>
                         <th style="padding: 5px; border: white solid 1px;">Specialité</th>
                         <th style="padding: 5px; border: white solid 1px;">Quartier</th>
@@ -45,6 +46,7 @@
                     <tr style="background-color: white; color:black; border: black solid 1px;" align="center">
 
                         <td>{{$agent->nom}} {{$agent->prenom}}</td>
+                        <td>{{$agent->email}}</td>
                         <td>{{$agent->tel}}</td>
                         <td>{{$agent->speciality}}</td>
                         <td>{{$agent->quartier}}</td>

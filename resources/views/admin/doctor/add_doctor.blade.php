@@ -82,6 +82,14 @@
 
                     <div style="padding: 15px;">
 
+                        <label for="">email</label>
+                        <input type="text" style="color: black;" name="email" placeholder="saisir le mail" required>
+
+                    </div>
+
+
+                    <div style="padding: 15px;">
+
                         <label for="">Tel</label>
                         <input type="number" style="color: black;" name="tel" placeholder="saisir le tel" required>
 
