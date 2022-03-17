@@ -94,5 +94,21 @@
                 <span class="menu-title">Rendez-vous</span>
             </a>
         </li>
+
+
+
+        <li>
+            <ul>USER
+
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="{{url('showuser')}}">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-file-document-box"></i>
+                        </span>
+                        <span class="menu-title">Liste des Utilisateur</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </nav>

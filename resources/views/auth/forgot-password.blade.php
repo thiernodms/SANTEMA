@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img height="150" width="200" style="margin-bottom: -30px;" src="/img/santema_logo.png" alt="">
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
