@@ -32,10 +32,22 @@ class HomeController extends Controller
 
         $data = new Rdv;
 
+        if (Auth::id()) {
+            $data->user_id = Auth::user()->id;
+            $data->nom = Auth::user()->name;
+            $data->email = Auth::user()->email;
+            $data->tel = Auth::user()->phone;
+            $data->quartier = Auth::user()->address;
+        } else {
 
-        $data->nom = $request->nom;
+            $data->nom = $request->nom;
 
-        $data->email = $request->email;
+            $data->email = $request->email;
+
+            $data->quartier = $request->quartier;
+
+            $data->tel = $request->tel;
+        }
 
         $data->date = $request->date;
 
@@ -45,15 +57,11 @@ class HomeController extends Controller
 
         $data->service = $request->service;
 
-        $data->tel = $request->tel;
 
         $data->description = $request->description;
 
         $data->status = 'En Traitement';
 
-        if (Auth::id()) {
-            $data->user_id = Auth::user()->id;
-        }
 
         $data->save();
 

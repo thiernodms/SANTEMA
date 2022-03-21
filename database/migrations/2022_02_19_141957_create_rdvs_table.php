@@ -18,6 +18,7 @@ class CreateRdvsTable extends Migration
             $table->string('nom')->nullable();
             $table->string('email')->nullable();
             $table->string('tel')->nullable();
+            $table->string('quartier')->nullable();
             $table->string('agent')->nullable();
             $table->string('date')->nullable();
             $table->string('time')->nullable();

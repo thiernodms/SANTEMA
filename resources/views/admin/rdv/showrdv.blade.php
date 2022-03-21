@@ -35,11 +35,12 @@
 
                         <th style="padding: 5px; border: white solid 1px;">Nom Client</th>
                         <th style="padding: 5px; border: white solid 1px;">Email</th>
+                        <th style="padding: 5px; border: white solid 1px;">Numéro</th>
+                        <th style="padding: 5px; border: white solid 1px;">Quartier</th>
                         <th style="padding: 5px; border: white solid 1px;">Date</th>
                         <th style="padding: 5px; border: white solid 1px;">Heure</th>
                         <th style="padding: 5px; border: white solid 1px;">Agent de santé</th>
                         <th style="padding: 5px; border: white solid 1px;">Service</th>
-                        <th style="padding: 5px; border: white solid 1px;">Numéro</th>
                         <th style="padding: 5px; border: white solid 1px;">Description</th>
                         <th style="padding: 5px; border: white solid 1px;">Status</th>
                         <th style="padding: 5px; border: white solid 1px;">Action</th>
@@ -56,11 +57,12 @@
                     <tr align="center" style="background-color: white; color:black; border: black solid 1px;">
                         <td>{{$rdvs->nom}}</td>
                         <td>{{$rdvs->email}}</td>
+                        <td>{{$rdvs->tel}}</td>
+                        <td>{{$rdvs->quartier}}</td>
                         <td>{{$rdvs->date}}</td>
                         <td>{{$rdvs->time}}</td>
                         <td>{{$rdvs->agent}}</td>
                         <td>{{$rdvs->service}}</td>
-                        <td>{{$rdvs->tel}}</td>
                         <td>{{$rdvs->description}}</td>
                         <td>{{$rdvs->status}}</td>
                         <td>
