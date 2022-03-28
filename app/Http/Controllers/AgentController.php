@@ -53,6 +53,17 @@ class AgentController extends Controller
 
 
 
+        $cv = $request->parcourt;
+
+        $cv_name = time() . '.' . $cv->getClientOriginalExtension();
+
+
+        $request->parcourt->move('cv_agents', $cv_name);
+
+        $agent->parcourt = $cv_name;
+
+
+
         $agent->save();
 
 
@@ -77,12 +88,20 @@ class AgentController extends Controller
 
     public function delete_agent($id)
     {
+        if (Auth::id()) {
+            if (Auth::user()->usertype == 1) {
 
-        $agent = Agents::find($id);
+                $agent = Agents::find($id);
 
-        $agent->delete();
+                $agent->delete();
 
-        return redirect()->back();
+                return redirect()->back();
+            } else {
+                redirect()->back();
+            }
+        } else {
+            redirect('login');
+        }
     }
 
 
@@ -127,6 +146,20 @@ class AgentController extends Controller
 
             $agent->image = $imagename;
         }
+
+
+        $cv = $request->parcourt;
+
+        if ($cv) {
+
+
+            $cv_name = time() . '.' . $cv->getClientOriginalExtension();
+
+            $request->parcourt->move('cv_agents', $cv_name);
+
+            $agent->parcourt = $cv_name;
+        }
+
 
         $agent->save();
 

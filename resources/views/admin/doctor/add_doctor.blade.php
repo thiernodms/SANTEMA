@@ -133,6 +133,14 @@
 
                     <div style="padding: 15px;">
 
+                        <label for="">CV</label>
+                        <input type="file" name="parcourt">
+
+                    </div>
+
+
+                    <div style="padding: 15px;">
+
                         <input type="submit" class="btn btn-success">
 
                     </div>

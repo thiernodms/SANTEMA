@@ -30,8 +30,29 @@
 
     </div>
 
+    @endif
+
+    @if($errors->any())
+
+    <div class="alert alert-success alert-dismissible">
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>
+                Rendez-vous non envoyer {{$error}} cliquez <a href="#rdv" style="text-decoration: underline; color:blue;">ici</a> pour reprendre
+                @break
+            </li>
+            @endforeach
+
+        </ul>
+
+    </div>
 
     @endif
+
 
     @include('user.partials.baniere')
 

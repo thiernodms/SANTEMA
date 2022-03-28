@@ -19,13 +19,24 @@ class CreateRdvsTable extends Migration
             $table->string('email')->nullable();
             $table->string('tel')->nullable();
             $table->string('quartier')->nullable();
-            $table->string('agent')->nullable();
             $table->string('date')->nullable();
             $table->string('time')->nullable();
             $table->string('service')->nullable();
-            $table->string('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->string('status')->nullable();
-            $table->string('user_id')->nullable();
+
+
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreignId('agent_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

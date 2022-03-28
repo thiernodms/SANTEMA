@@ -33,7 +33,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 
 
-Route::get('/showuser', [UserController::class, 'showuser']);
+Route::get('/showuser', [UserController::class, 'showuser'])->name('showuser');
+
+Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+
+Route::get('/update_user/{id}', [UserController::class, 'update_user']);
 
 
 

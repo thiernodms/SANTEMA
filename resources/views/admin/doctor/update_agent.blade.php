@@ -128,7 +128,7 @@
                     <div style="padding: 15px;">
 
                         <label for="">Ancienne image</label>
-                        <img height="150" width="150" src="/imageagents/{{$agent->image}}" alt="">
+                        <img height="150" width="150" src="/imageagents/{{$agent->image}}" alt="image">
 
                     </div>
 
@@ -137,6 +137,22 @@
 
                         <label for="">Changer d'image</label>
                         <input type="file" name="image">
+
+                    </div>
+
+
+                    <div style="padding: 15px;">
+
+                        <label for="">Ancien CV</label>
+                        <img src="/cv_agents/{{$agent->parcourt}}" alt="cv">
+
+                    </div>
+
+
+                    <div style="padding: 15px;">
+
+                        <label for="">Mise à jour CV</label>
+                        <input type="file" name="parcourt">
 
                     </div>
 

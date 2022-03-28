@@ -21,7 +21,9 @@ class CreateAgentsTable extends Migration
             $table->string('tel')->nullable();
             $table->string('speciality')->nullable();
             $table->string('quartier')->nullable();
+            $table->string('parcourt')->nullable();
             $table->string('image')->nullable();
+
             $table->timestamps();
         });
     }

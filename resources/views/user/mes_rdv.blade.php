@@ -30,7 +30,7 @@
 
             <tr style="background-color: gray; border: white solid 1px;" align="center">
 
-                <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->agent}} </td>
+                <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->agent->nom}} {{$rdvs->agent->prenom}} </td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->service}}</td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->date}}</td>
                 <td style="padding: 10px; font-size: 20px; color:white;">{{$rdvs->time}}</td>
