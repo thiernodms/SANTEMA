@@ -11,14 +11,16 @@ class SendRdvNotification extends Notification
 {
     use Queueable;
 
+
+    public $rdv;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($rdv)
     {
-        //
+        $this->rdv = $rdv;
     }
 
     /**

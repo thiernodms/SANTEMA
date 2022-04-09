@@ -27,7 +27,7 @@ class RdvObserver
              
          * */
 
-        $rdv->notify(new SendRdvNotification());
+        $rdv->notify(new SendRdvNotification($rdv));
     }
 
     /**
