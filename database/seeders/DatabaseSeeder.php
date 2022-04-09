@@ -17,7 +17,21 @@ class DatabaseSeeder extends Seeder
     {
 
         DB::table('roles')->insert([
-            'name' => 'admin',
+            [
+                'id' => '1',
+                'name' => 'admin',
+            ],
+
+            [
+                'id' => '2',
+                'name' => 'agent',
+            ],
+
+
+            [
+                'id' => '3',
+                'name' => 'utilisateur',
+            ]
         ]);
 
 
