@@ -36,7 +36,7 @@
                         {{$message}}
                         @enderror
                     </span>
-                    <input type="text" name="tel" class="form-control @error('tel') is-invalid @enderror" placeholder="Veuillez saisir votre Numero de telephone" value="{{old('tel')}}">
+                    <input type="tel" name="tel" id="tel" class="form-control @error('tel') is-invalid @enderror" placeholder="Entrez votre Numero de telephone (ex:+224626919660)" value="{{old('tel')}}">
                 </div>
 
                 <div class=" col-12 col-sm-6 py-2 wow fadeInUp" data-wow-delay="300ms">
@@ -80,10 +80,12 @@
 
                         <option value="">---selectionner un agent---</option>
 
-                        @foreach($agent as $agents )
+                        @foreach($agent as $agents)
+                        @if($agents->abonnement == 'abonné')
 
-                        <option value="{{$agents->id}}">{{$agents->nom}} {{$agents->prenom}} ({{$agents->speciality}})</option>
+                        <option value="{{$agents->id}}">{{$agents->user->name}} ({{$agents->speciality}})</option>
 
+                        @endif
                         @endforeach
 
                     </select>
@@ -144,10 +146,13 @@
 
                         <option value="">---selectionner un agent---</option>
 
-                        @foreach($agent as $agents )
 
-                        <option value="{{$agents->id}}">{{$agents->nom}} {{$agents->prenom}} ({{$agents->speciality}})</option>
+                        @foreach($agent as $agents)
+                        @if($agents->abonnement == 'abonné')
 
+                        <option value="{{$agents->id}}">{{$agents->user->name}} ({{$agents->speciality}})</option>
+
+                        @endif
                         @endforeach
 
                     </select>

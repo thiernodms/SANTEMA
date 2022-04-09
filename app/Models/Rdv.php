@@ -23,6 +23,8 @@ class Rdv extends Model
         'time',
         'description',
         'status',
+        'user_id',
+        'agent_id',
     ];
 
 

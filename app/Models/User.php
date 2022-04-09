@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\userCreatingEvent;
 use App\Models\Rdv;
+use App\Models\Role;
+use App\Models\Agents;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
@@ -19,6 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'address',
         'password',
-        'usertype',
+        'role_id',
     ];
 
     /**
@@ -67,5 +72,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rdvs()
     {
         return $this->hasMany(Rdv::class);
+    }
+
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
+    public function agents()
+    {
+        return $this->hasMany(Agents::class);
     }
 }

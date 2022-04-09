@@ -19,7 +19,7 @@ class UserController extends Controller
     public function delete_user($id)
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1) {
                 $user = User::find($id);
 
                 $user->delete();

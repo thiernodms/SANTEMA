@@ -3,18 +3,118 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agents;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Jenssegers\Agent\Facades\Agent;
+use Laravel\Jetstream\Jetstream;
 use Symfony\Component\CssSelector\Node\ElementNode;
 
 class AgentController extends Controller
 {
-    public function addview()
+
+
+    public function agent_register_view()
+    {
+        return view('admin.doctor.agent_register_view');
+    }
+
+
+
+    public function agent_register(Request $request)
+    {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role_id' => ['required'],
+            'speciality' => ['required', 'string', 'max:255'],
+        ]);
+
+
+
+
+        $user = new User;
+
+        $user->name = $request->name;
+
+        $user->phone = $request->phone;
+
+        $user->address = $request->address;
+
+        $user->email = $request->email;
+
+        $user->role_id = $request->role_id;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+
+
+
+
+        $agent = new Agents;
+
+        $image = $request->file;
+
+        if ($image) {
+
+
+
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+
+
+            $request->file->move('imageagents', $imagename);
+            $agent->image = $imagename;
+        }
+
+
+
+        $agent->user_id = $user->id;
+        $agent->speciality = $request->speciality;
+
+
+
+
+
+        $cv = $request->parcourt;
+
+        if ($cv) {
+
+
+            $cv_name = time() . '.' . $cv->getClientOriginalExtension();
+
+
+            $request->parcourt->move('cv_agents', $cv_name);
+
+            $agent->parcourt = $cv_name;
+        }
+
+
+        $agent->save();
+
+        return redirect('/home')->with('message', 'Votre compte agent à été créé avec succès connecter vous pour validé votre mail puis accéder à votre espace agent ');
+    }
+
+
+
+
+    public function add_agent_view()
     {
 
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
-                return view('admin.doctor.add_doctor');
+            if (Auth::user()->role_id == 1) {
+
+
+                $users = User::where([
+                    ['role_id', '=', 2],
+
+                ])->get();
+
+                return view('admin.doctor.add_doctor', compact('users'));
             } else {
                 return redirect()->back();
             }
@@ -24,56 +124,57 @@ class AgentController extends Controller
     }
 
 
-    public function uploaddoctor(Request $request)
+    public function upload_doctor(Request $request)
     {
 
         $agent = new Agents;
 
         $image = $request->file;
 
-        $imagename = time() . '.' . $image->getClientOriginalExtension();
+        if ($image) {
 
 
-        $request->file->move('imageagents', $imagename);
 
-        $agent->image = $imagename;
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
 
 
-        $agent->nom = $request->nom;
+            $request->file->move('imageagents', $imagename);
+            $agent->image = $imagename;
+        }
 
-        $agent->prenom = $request->prenom;
 
-        $agent->email = $request->email;
-
-        $agent->tel = $request->tel;
+        $agent->user_id = $request->user_id;
 
         $agent->speciality = $request->speciality;
 
-        $agent->quartier = $request->quartier;
+        $agent->abonnement = $request->abonnement;
 
 
 
         $cv = $request->parcourt;
 
-        $cv_name = time() . '.' . $cv->getClientOriginalExtension();
+        if ($cv) {
 
 
-        $request->parcourt->move('cv_agents', $cv_name);
+            $cv_name = time() . '.' . $cv->getClientOriginalExtension();
 
-        $agent->parcourt = $cv_name;
 
+            $request->parcourt->move('cv_agents', $cv_name);
+
+            $agent->parcourt = $cv_name;
+        }
 
 
         $agent->save();
 
 
-        return  redirect()->back()->with('message', 'Agent ajouter avec succès');
+        return  redirect()->route('show_agent')->with('message', 'Agent ajouter avec succès');
     }
 
-    public function showagent()
+    public function show_agent()
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1) {
                 $data = Agents::all();
 
                 return view('admin.doctor.show_agent', compact('data'));
@@ -89,7 +190,7 @@ class AgentController extends Controller
     public function delete_agent($id)
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1) {
 
                 $agent = Agents::find($id);
 
@@ -108,7 +209,7 @@ class AgentController extends Controller
     public function update_agent($id)
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1) {
 
                 $agent = Agents::find($id);
 
@@ -127,12 +228,9 @@ class AgentController extends Controller
 
         $agent = Agents::find($id);
 
-        $agent->nom = $request->nom;
-        $agent->prenom = $request->prenom;
-        $agent->email = $request->email;
-        $agent->tel = $request->tel;
+
         $agent->speciality = $request->speciality;
-        $agent->quartier = $request->quartier;
+        $agent->abonnement = $request->abonnement;
 
 
         $image = $request->image;
@@ -164,6 +262,6 @@ class AgentController extends Controller
         $agent->save();
 
 
-        return redirect()->back()->with('message', ' Modification effectué avec succès!');
+        return redirect()->route('show_agent')->with('message', ' Modification effectué avec succès!');
     }
 }

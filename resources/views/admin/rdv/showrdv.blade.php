@@ -1,103 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('admin.layouts.app')
 
-<head>
-    <!-- Required meta tags -->
+@section('css')
 
-    @include('admin.css')
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+@endsection
 
-</head>
+@section('content')
 
-<body>
-    <div class="container-scroller">
-
-        <!-- partial:partials/_sidebar.html -->
-
-        @include('admin.sidebar')
-
-        <!-- partial -->
+@if(session()->has('message'))
 
 
-        @include('admin.navbar')
+<div class="alert alert-success alert-dismissible">
 
-        <!-- partial -->
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 
 
 
-        <div class="container-fluid page-body-wrapper">
+    {{session()->get('message')}}
+
+</div>
 
 
-            <div style="padding-top: 100px;" class="table-responsive">
-
-                <table class="table">
-
-                    <tr style="background-color: black; ">
-
-                        <th style="padding: 5px; border: white solid 1px;">Nom Client</th>
-                        <th style="padding: 5px; border: white solid 1px;">Email</th>
-                        <th style="padding: 5px; border: white solid 1px;">Numéro</th>
-                        <th style="padding: 5px; border: white solid 1px;">Quartier</th>
-                        <th style="padding: 5px; border: white solid 1px;">Date</th>
-                        <th style="padding: 5px; border: white solid 1px;">Heure</th>
-                        <th style="padding: 5px; border: white solid 1px;">Agent de santé</th>
-                        <th style="padding: 5px; border: white solid 1px;">Service</th>
-                        <th style="padding: 5px; border: white solid 1px;">Description</th>
-                        <th style="padding: 5px; border: white solid 1px;">Status</th>
-                        <th style="padding: 5px; border: white solid 1px;">Action</th>
-                        <th style="padding: 5px; border: white solid 1px;">Notifier</th>
+@endif
 
 
 
 
-                    </tr>
+<div class="row ">
+    <div class="col-lg-12 mx-auto">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h2 class="card-title text-xl">Rendez-vous</h2>
+                    </div>
+
+                    <div class="table-responsive my-5 mx-auto">
+                        <table id="myTable" class="display table" width="100%" style="border-top: 1px black solid;">
+                            <thead>
+                                <tr>
+
+                                    <th>Nom Client</th>
+                                    <th>Email</th>
+                                    <th>Numéro</th>
+                                    <th>Quartier</th>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    @if(Auth::user()->role_id == 1)
+                                    <th>Agent de santé</th>
+                                    @endif
+                                    <th>Service</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                    <th>Notifier</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($rdv as $rdvs)
+
+                                <tr>
+                                    <td>{{$rdvs->nom}}</td>
+                                    <td>{{$rdvs->email}}</td>
+                                    <td>{{$rdvs->tel}}</td>
+                                    <td>{{$rdvs->quartier}}</td>
+                                    <td>{{$rdvs->date}}</td>
+                                    <td>{{$rdvs->time}}</td>
+                                    @foreach($agents as $agent)
+                                    @if($agent->user_id == $agent->user->id and $rdvs->agent_id == $agent->id)
+                                    @if(Auth::user()->role_id == 1)
+                                    <td>{{$agent->user->name}}</td>
+                                    @endif
+                                    @endif
+                                    @endforeach
+                                    <td>{{$rdvs->service}}</td>
+                                    <td>{{$rdvs->description}}</td>
+                                    <td>{{$rdvs->status}}</td>
+                                    <td>
 
 
-                    @foreach($rdv as $rdvs)
+                                        <a class=" btn btn-success" style="margin-bottom: 2px;" href="{{url('confirm_rdv', $rdvs->id)}}">Confirmer</a>
 
-                    <tr align="center" style="background-color: white; color:black; border: black solid 1px;">
-                        <td>{{$rdvs->nom}}</td>
-                        <td>{{$rdvs->email}}</td>
-                        <td>{{$rdvs->tel}}</td>
-                        <td>{{$rdvs->quartier}}</td>
-                        <td>{{$rdvs->date}}</td>
-                        <td>{{$rdvs->time}}</td>
-                        <td>{{$rdvs->agent}}</td>
-                        <td>{{$rdvs->service}}</td>
-                        <td>{{$rdvs->description}}</td>
-                        <td>{{$rdvs->status}}</td>
-                        <td>
+                                        <a class="btn btn-danger" href="{{url('/admin/annuler_rdv', $rdvs->id)}}">Annuler</a>
 
+                                    </td>
 
-                            <a class="btn btn-success" style="margin-bottom: 2px;" href="{{url('confirm_rdv', $rdvs->id)}}">Confirmer</a>
+                                    <td>
 
-                            <a class="btn btn-danger" href="{{url('annuler_rdv', $rdvs->id)}}">Annuler</a>
+                                        <a class="btn btn-primary" href="{{url('notifier_rdv_view', $rdvs->id)}}">Notifier</a>
 
-                        </td>
+                                    </td>
+                                </tr>
 
-                        <td>
-
-                            <a class="btn btn-primary" href="{{url('notifier_rdv_view', $rdvs->id)}}">Notifier</a>
-
-                        </td>
-                    </tr>
-
-                    @endforeach
-
-                </table>
-
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-
-
         </div>
+    </div>
+</div>
 
 
 
-        <!-- container-scroller -->
-        <!-- plugins:js -->
+@section('script')
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-        @include('admin.css')
 
-        <!-- End custom js for this page -->
-</body>
 
-</html>
+<script>
+    $(document).ready(function() {
+        $('#myTable').dataTable();
+    });
+</script>
+
+@endsection
+
+
+
+
+
+@endsection

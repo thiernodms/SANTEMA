@@ -4,9 +4,9 @@
 
 
         <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
-
-
             @foreach($agent as $agents)
+            @if($agents->abonnement == 'abonné')
+
 
             <div class="item">
                 <div class="card-doctor">
@@ -18,14 +18,15 @@
                         </div>
                     </div>
                     <div class="body">
-                        <p class="text-xl mb-0">{{$agents->nom}} {{$agents->prenom}}</p>
+                        <p class="text-xl mb-0">{{$agents->user->name}}</p>
                         <span class="text-sm text-grey">{{$agents->speciality}}</span>
+
                     </div>
                 </div>
             </div>
 
+            @endif
             @endforeach
-
         </div>
     </div>
 </div>

@@ -7,20 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class sendRdvNotification extends Notification
+class SendRdvNotification extends Notification
 {
     use Queueable;
-
-    private $details;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct()
     {
-        $this->details = $details;
+        //
     }
 
     /**
@@ -43,10 +41,9 @@ class sendRdvNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting($this->details['greeting'])
-            ->line($this->details['body'])
-            ->action($this->details['actiontext'], $this->details['actionurl'])
-            ->line($this->details['endpart']);
+            ->line('Rendez-vous envoyé avec succès. pour voir les details')
+            ->action('Cliquez ici', url('/mesrdv'))
+            ->line('Merci de nous avoir fait confiance!');
     }
 
     /**

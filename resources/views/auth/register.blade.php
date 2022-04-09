@@ -22,11 +22,17 @@
             <div>
                 <x-jet-label for="phone" value="{{ __('phone') }}" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
+                <span></span>
             </div>
 
             <div>
                 <x-jet-label for="address" value="{{ __('address') }}" />
                 <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
+            </div>
+
+            <div>
+
+                <x-jet-input id="role_id" class="block mt-1 w-full" type="hidden" name="role_id" :value="3" required autofocus />
             </div>
 
             <div class="mt-4">

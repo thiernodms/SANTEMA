@@ -22,7 +22,7 @@ use App\Http\Controllers\AgentController;
 
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/home', [AdminController::class, 'redirect'])->middleware('auth', 'verified');
@@ -41,25 +41,33 @@ Route::get('/update_user/{id}', [UserController::class, 'update_user']);
 
 
 
-Route::get('/add_doctor_view', [AgentController::class, 'addview']);
-
-Route::post('/upload_doctor', [AgentController::class, 'uploaddoctor']);
-
-Route::get('/delete_agent/{id}', [AgentController::class, 'delete_agent']);
-
-Route::get('/update_agent/{id}', [AgentController::class, 'update_agent']);
-
-Route::post('/edit_agent/{id}', [AgentController::class, 'edit_agent']);
-
-Route::get('/showagent', [AgentController::class, 'showagent']);
 
 
 
-Route::get('/showrdv', [RdvController::class, 'showrdv']);
+
+Route::get('/agent/register_view', [AgentController::class, 'agent_register_view'])->name('register_as_agent_view');
+
+Route::post('/agent/register', [AgentController::class, 'agent_register'])->name('agent_register');
+
+Route::get('/add_doctor_view', [AgentController::class, 'add_agent_view'])->name('add_agent_view');
+
+Route::post('/upload_doctor', [AgentController::class, 'upload_doctor'])->name('upload_doctor');
+
+Route::get('/delete_agent/{id}', [AgentController::class, 'delete_agent'])->name('delete_agent');
+
+Route::get('/update_agent/{id}', [AgentController::class, 'update_agent'])->name('update_agent');
+
+Route::post('/edit_agent/{id}', [AgentController::class, 'edit_agent'])->name('edit_agent');
+
+Route::get('/showagent', [AgentController::class, 'show_agent'])->name('show_agent');
+
+
+
+Route::get('/showrdv', [RdvController::class, 'show_rdv'])->name('show_rdv');
 
 Route::get('/confirm_rdv/{id}', [RdvController::class, 'confirm_rdv']);
 
-Route::get('/annuler_rdv/{id}', [RdvController::class, 'annuler_rdv']);
+Route::get('/admin/annuler_rdv/{id}', [RdvController::class, 'annuler_rdv']);
 
 Route::get('/notifier_rdv_view/{id}', [RdvController::class, 'notifier_rdv_view']);
 

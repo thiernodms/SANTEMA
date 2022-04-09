@@ -1,128 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('admin.layouts.app')
+@section('content')
 
-<head>
-    <!-- Required meta tags -->
-
-    <base href="/public">
-
-    <style type="text/css">
-        label {
-            display: inline-block;
-
-            width: 200px;
-        }
-    </style>
-
-    @include('admin.css')
-
-</head>
-
-<body>
-    <div class="container-scroller">
-
-        <!-- partial:partials/_sidebar.html -->
-
-        @include('admin.sidebar')
-
-        <!-- partial -->
+@if(session()->has('message'))
 
 
-        @include('admin.navbar')
+<div class="alert alert-success alert-dismissible">
 
-        <!-- partial -->
 
-        <div class="container-fluid page-body-wrapper">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 
 
 
+    {{session()->get('message')}}
+
+</div>
 
 
-            <div class="container" align="center" style="padding-top:100px;">
+@endif
 
 
+<div class="row ">
+    <div class="col-lg-6 mx-auto">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Notifier un Rendez-vous</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action="{{url('notifier_rdv', $data->id)}}" method="POST">
+                        @csrf
 
-                @if(session()->has('message'))
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nom">Salutation</label>
+                                <input type="text" class="form-control" id="nom" name="greeting" placeholder="Entrez la salutation" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="body">Corps</label>
+                                <textarea name="body" class="form-control" id="body" cols="25" rows="5" placeholder="Entrez le message" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="actiontext">Action Texte</label>
+                                <input type="text" class="form-control" id="actiontext" name="actiontext" placeholder="Entrez le texte d'action">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="actionurl">Action Url</label>
+                                <input type="text" class="form-control" id="actionurl" name="actionurl" placeholder="Entrez le lien d'action">
+                            </div>
 
 
-                <div class="alert alert-success alert-dismissible">
+                            <div class="form-group">
+                                <label for="endpart">Message de fin</label>
+                                <input type="text" class="form-control" id="endpart" name="endpart" placeholder="Entrez le message finale">
+                            </div>
 
 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        </div>
+                        <!-- /.card-body -->
 
-
-
-                    {{session()->get('message')}}
-
+                        <div class="card-footer ">
+                            <button type="submit" class="btn btn-primary text-dark">Envoyer</button>
+                        </div>
+                    </form>
                 </div>
-
-
-                @endif
-
-
-                <form action="{{url('notifier_rdv', $data->id)}}" method="POST">
-
-                    @csrf
-
-                    <div style="padding: 15px;">
-
-                        <label for="">Salutation</label>
-                        <input type="text" style="color: black;" name="greeting" placeholder="saisir la salutation" required>
-
-                    </div>
-
-
-                    <div style="padding: 15px;">
-
-                        <label for="">Corps</label>
-                        <textarea style="color: black;" name="body" id="" cols="25" rows="5" placeholder="saisir le message"></textarea>
-                    </div>
-
-
-                    <div style="padding: 15px;">
-
-                        <label for="">Action Text</label>
-                        <input type="text" style="color: black;" name="actiontext" required>
-
-                    </div>
-
-
-                    <div style="padding: 15px;">
-
-                        <label for="">Action Url</label>
-                        <input type="text" style="color: black;" name="actionurl" required>
-
-                    </div>
-
-
-                    <div style="padding: 15px;">
-
-                        <label for="">End Part</label>
-                        <input type="text" style="color: black;" name="endpart" required>
-
-                    </div>
-
-
-                    <div style="padding: 15px;">
-
-                        <input type="submit" class="btn btn-success">
-
-                    </div>
-
-                </form>
-
             </div>
-
         </div>
+    </div>
+</div>
 
-        <!-- container-scroller -->
-        <!-- plugins:js -->
 
-        @include('admin.css')
 
-        <!-- End custom js for this page -->
-</body>
-
-</html>
+@endsection

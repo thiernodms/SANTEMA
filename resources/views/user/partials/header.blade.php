@@ -33,51 +33,72 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupport">
-                <ul class="navbar-nav ml-auto" style="font-size: 14px;">
+                <ul class="navbar-nav ml-auto text-sm">
                     <li class="nav-item active">
                         <a class="nav-link" href="{{url('/')}}">Acceuil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">A propos</a>
+                        <a class="nav-link" href="#">A propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="doctors.html">Nos Agents</a>
+                        <a class="nav-link" href="#">Nos Agents</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="blog.html">Actualités</a>
+                        <a class="nav-link" href="#">Actualités</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contacts</a>
+                        <a class="nav-link" href="#">Contacts</a>
                     </li>
 
                     @if(Route::has('login'))
 
                     @auth
+                    <ul class="nav-link text-center">
 
-                    <li class="nav-item">
-                        <a class="nav-link" style="background-color: aquamarine;" href="{{url('mesrdv')}}">Mes Rendez-vous</a>
-                    </li>
-
-                    <x-app-layout>
-
-                    </x-app-layout>
-
-                    @else
+                        <li class="nav-link  text-sm">
 
 
-                    <li class="nav-item">
-                        <a class="btn btn-primary ml-lg-3" href="{{route('login')}}">Se connecter</a>
-                    </li>
+                            <a class="nav-link" style="background-color: aquamarine;" href="{{url('mesrdv')}}">Mes Rendez-vous</a>
 
-                    <li class="nav-item">
-                        <a class="btn btn-primary ml-lg-3" href="{{route('register')}}">S'inscrire</a>
-                    </li>
 
-                    @endauth
+                            <x-app-layout>
 
-                    @endif
+                            </x-app-layout>
+                        </li>
 
+                    </ul>
                 </ul>
+
+                @else
+
+                <ul>
+
+                    <li class="nav-item">
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-primary nav-link ml-lg-2 my-1 py-0" href="{{route('login')}}">Connexion</a>
+                    </li>
+                </ul>
+
+
+                <ul>
+
+
+                    <li class="nav-item mb-1">
+                        <a class="btn btn-primary nav-link ml-lg-2" href="{{route('register_as_agent_view')}}">Devenir agent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary nav-link ml-lg-2" href="{{route('register')}}">S'inscrire</a>
+                    </li>
+                </ul>
+
+
+
+                @endauth
+
+                @endif
+
             </div> <!-- .navbar-collapse -->
         </div> <!-- .container -->
     </nav>

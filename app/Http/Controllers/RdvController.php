@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agents;
 use App\Models\Rdv;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\sendRdvNotification;
+use App\Notifications\RdvNotification;
 use Illuminate\Support\Facades\Notification;
 
 class RdvController extends Controller
 {
-    public function showrdv()
+
+
+    public function show_rdv()
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1) {
+
                 $rdv = Rdv::all();
 
-                return view('admin.rdv.showrdv', compact('rdv'));
+                $agents = Agents::all();
+
+                return view('admin.rdv.showrdv', compact('rdv', 'agents'));
+            } elseif (Auth::user()->role_id == 2) {
+
+                $agents = Agents::all();
+
+                $rdv = Rdv::all();
+
+                return view('admin.doctor.rdv_agent', compact('rdv', 'agents'));
             } else {
+
                 return redirect()->back();
             }
         } else {
@@ -26,33 +40,51 @@ class RdvController extends Controller
     }
 
 
+
     public function confirm_rdv($id)
     {
-        $data = Rdv::find($id);
+        if (Auth::id()) {
+            if (Auth::user()->role_id == 1 or Auth::user()->role_id == 2) {
+                $data = Rdv::find($id);
 
-        $data->status = 'Confirmé';
+                $data->status = 'Confirmé';
 
-        $data->save();
+                $data->save();
 
-        return redirect()->back();
+                return redirect()->back();
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
     }
+
 
 
     public function annuler_rdv($id)
     {
-        $data = Rdv::find($id);
+        if (Auth::id()) {
+            if (Auth::user()->role_id == 1 or Auth::user()->role_id == 2) {
+                $data = Rdv::find($id);
 
-        $data->status = 'Annulé';
+                $data->status = 'Annulé';
 
-        $data->save();
+                $data->save();
 
-        return redirect()->back();
+                return redirect()->back();
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function notifier_rdv_view($id)
     {
         if (Auth::id()) {
-            if (Auth::user()->usertype == 1) {
+            if (Auth::user()->role_id == 1 or Auth::user()->role_id == 2) {
                 $data = Rdv::find($id);
 
                 return view('admin.rdv.notifier_rdv_view', compact('data'));
@@ -68,28 +100,35 @@ class RdvController extends Controller
     public function notifier_rdv(Request $request, $id)
     {
 
-        $data = Rdv::find($id);
+        if (Auth::id()) {
+            if (Auth::user()->role_id == 1 or Auth::user()->role_id == 2) {
 
-        $details = [
+                $data = Rdv::find($id);
 
-            'greeting' => $request->greeting,
+                $details = [
 
-            'body' => $request->body,
+                    'greeting' => $request->greeting,
 
-            'actiontext' => $request->actiontext,
+                    'body' => $request->body,
 
-            'actionurl' => $request->actionurl,
+                    'actiontext' => $request->actiontext,
 
-            'endpart' => $request->endpart,
+                    'actionurl' => $request->actionurl,
+
+                    'endpart' => $request->endpart,
+
+                ];
 
 
 
-        ];
+                Notification::send($data, new RdvNotification($details));
 
-
-
-        Notification::send($data, new sendRdvNotification($details));
-
-        return redirect()->back()->with('message', 'Notification envoyé avec succès!');
+                return redirect()->route('show_rdv')->with('message', 'Notification envoyé avec succès!');
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
     }
 }

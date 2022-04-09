@@ -16,12 +16,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        if (Auth::id()) {
-            return redirect('home');
-        } else {
-            $agent = Agents::all();
-            return view('user.home', compact('agent'));
-        }
+
+        $agent = Agents::all();
+
+
+        return view('user.home', compact('agent'));
     }
 
 
@@ -49,9 +48,9 @@ class HomeController extends Controller
 
                 $request->validate([
                     'nom' => ['bail', 'required', 'string', 'min:5', 'max:15'],
-                    'email' => ['bail', 'required', 'min:5', 'email', 'string'],
+                    'email' => ['bail', 'min:5', 'email', 'string'],
                     'quartier' => ['bail', 'required', 'min:5', 'max:15', 'string'],
-                    'tel' => ['bail', 'required', 'min:5', 'numeric'],
+                    'tel' => ['bail', 'required', 'min:14', 'numeric'],
                 ]);
 
                 $data->nom = $request->nom;
@@ -88,7 +87,7 @@ class HomeController extends Controller
 
             return redirect()->back()->with('message', 'Rendez-vous envoyer avec succès, nous vous contacterons dans un meilleur delai');
         } else {
-            return redirect()->back()->with('message', 'Rendez-vous indisponible veuillez changer soit la date, l\'heure ou l\'agent ');
+            return redirect()->back()->with('message', 'Desolé! Agent indisponible veuillez changer soit la date, l\'heure ou l\'agent ');
         }
     }
 
@@ -99,7 +98,7 @@ class HomeController extends Controller
 
         if (Auth::id()) {
 
-            if (Auth::user()->usertype == 0) {
+            if (Auth::user()->role_id == 3) {
 
                 $useremail = Auth::user()->email;
 
@@ -118,10 +117,20 @@ class HomeController extends Controller
     public function annuler_rdv($id)
     {
 
-        $data = Rdv::find($id);
+        if (Auth::id()) {
 
-        $data->delete();
+            if (Auth::user()->role_id == 3) {
 
-        return redirect()->back();
+                $data = Rdv::find($id);
+
+                $data->delete();
+
+                return redirect()->back();
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            return redirect()->back();
+        }
     }
 }
