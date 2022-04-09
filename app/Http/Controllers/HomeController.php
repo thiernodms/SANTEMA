@@ -86,7 +86,6 @@ class HomeController extends Controller
 
             $data->save();
 
-            $data->notify(new SendRdvNotification($data));
 
             return redirect()->back()->with('message', 'Rendez-vous envoyer avec succès, nous vous contacterons dans un meilleur delai');
         } else {
