@@ -51,9 +51,6 @@
                                     <th>Quartier</th>
                                     <th>Date</th>
                                     <th>Heure</th>
-                                    @if(Auth::user()->role_id == 1)
-                                    <th>Agent de santé</th>
-                                    @endif
                                     <th>Service</th>
                                     <th>Description</th>
                                     <th>Status</th>
@@ -64,7 +61,7 @@
                             </thead>
                             <tbody>
                                 @foreach($rdv as $rdvs)
-
+                                @if(Auth::id() == $rdvs->agent->user_id)
 
                                 <tr>
                                     <td>{{$rdvs->nom}}</td>
@@ -73,13 +70,6 @@
                                     <td>{{$rdvs->quartier}}</td>
                                     <td>{{$rdvs->date}}</td>
                                     <td>{{$rdvs->time}}</td>
-                                    @foreach($agents as $agent)
-                                    @if($agent->user_id == $agent->user->id and $rdvs->agent_id == $agent->id)
-                                    @if(Auth::user()->role_id == 1)
-                                    <td>{{$agent->user->name}}</td>
-                                    @endif
-                                    @endif
-                                    @endforeach
                                     <td>{{$rdvs->service}}</td>
                                     <td>{{$rdvs->description}}</td>
                                     <td>{{$rdvs->status}}</td>
@@ -99,7 +89,7 @@
                                     </td>
                                 </tr>
 
-
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>

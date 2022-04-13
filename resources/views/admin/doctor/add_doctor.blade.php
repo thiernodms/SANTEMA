@@ -35,14 +35,13 @@
                         @csrf
                         <div class="card-body">
 
-
                             <div class="form-group">
-                                <label>User</label>
-                                <select class="form-control select2 select2-hidden-accessible" name="user_id" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                <label>User </label>
+                                <select name="user_id" class="form-control select2 select2-hidden-accessible " style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                     <option selected="selected" data-select2-id="3">--Selectionner--</option>
                                     @foreach($users as $user)
 
-                                    <option data-select2-id="32" value="{{$user->id}}">{{$user->id}} {{$user->name}}</option>
+                                    <option data-select2-id="32" value="{{$user->id}}">{{$user->id}} {{$user->name}} </option>
 
                                     @endforeach
                                 </select>

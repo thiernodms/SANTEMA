@@ -1,4 +1,4 @@
-<div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
+<div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_2.jpg);">
     <div class="hero-section">
         <div class="container text-center wow zoomIn">
             <span class="subhead">Bienvenue dans le meilleur espace de santé en ligne au monde</span>

@@ -7,8 +7,8 @@
                 <a href="about.html" class="btn btn-primary">Lire plus</a>
             </div>
             <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
-                <div class="img-place custom-img-1">
-                    <img src="../assets/img/sectionimg.jpg" alt="">
+                <div class="img-place custom-img-1 h-700">
+                    <img src="../assets/img/section_img.jpg" alt="">
                 </div>
             </div>
         </div>

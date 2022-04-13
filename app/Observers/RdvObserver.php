@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Rdv;
 use App\Notifications\SendRdvNotification;
+use Illuminate\Support\Facades\Notification;
 use Nexmo\Laravel\Facade\Nexmo;
 
 class RdvObserver
@@ -28,6 +29,8 @@ class RdvObserver
          * */
 
         // $rdv->notify(new SendRdvNotification($rdv));
+
+        Notification::send($rdv, new SendRdvNotification($rdv));
     }
 
     /**

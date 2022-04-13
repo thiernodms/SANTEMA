@@ -109,12 +109,12 @@ class AgentController extends Controller
             if (Auth::user()->role_id == 1) {
 
 
-                $users = User::where([
-                    ['role_id', '=', 2],
+                $agents = Agents::all();
+                $users = User::where('role_id', '=', 2)
+                    ->orderByDesc('created_at')
+                    ->get();
 
-                ])->get();
-
-                return view('admin.doctor.add_doctor', compact('users'));
+                return view('admin.doctor.add_doctor', compact('users', 'agents'));
             } else {
                 return redirect()->back();
             }
@@ -126,6 +126,12 @@ class AgentController extends Controller
 
     public function upload_doctor(Request $request)
     {
+
+        $request->validate([
+            'speciality' => ['required', 'string', 'max:255'],
+            'user_id' => ['required'],
+            'file' => ['required'],
+        ]);
 
         $agent = new Agents;
 

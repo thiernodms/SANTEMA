@@ -25,11 +25,11 @@ class RdvController extends Controller
                 return view('admin.rdv.showrdv', compact('rdv', 'agents'));
             } elseif (Auth::user()->role_id == 2) {
 
-                $agents = Agents::all();
+
 
                 $rdv = Rdv::all();
 
-                return view('admin.doctor.rdv_agent', compact('rdv', 'agents'));
+                return view('admin.doctor.rdv_agent', compact('rdv'));
             } else {
 
                 return redirect()->back();
